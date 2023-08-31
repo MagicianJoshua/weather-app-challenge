@@ -14,8 +14,8 @@ function weatherApi(lat,lon) {
 
 function getCoordinate(city){
     let url = "http://api.openweathermap.org/geo/1.0/direct?q="+city+"&limit=5&appid="+weatherApiKey; //this url is for turning city names into lat and longtitude
-    
-    console.log(getApi(url));
+    let fetchData = getApi;
+    console.log(fetchData);
 }
 
 
@@ -34,9 +34,9 @@ function getApi(requestUrl) {
             
         }  
         
-        
+        return dataReturn;
     });
     
-    return dataReturn;
+   
     
  }
