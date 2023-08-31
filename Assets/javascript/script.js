@@ -7,7 +7,7 @@ getCoordinate("london");
 
 function weatherApi(lat,lon) {
     let url = "api.openweathermap.org/data/2.5/forecast?lat="+lat+"&lon="+lon+"&appid="+weatherApiKey; //this url is for getting the weather
-    let fetch = getApi(url);
+    // let fetch = getApi(url);
     // console.log("Weather: "+ fetch)
 
 }
@@ -18,7 +18,8 @@ function getCoordinate(city){
     console.log(getApi(url));
 }
 
- function getApi(requestUrl) {
+
+function getApi(requestUrl) {
     
     let dataReturn = [];
     
@@ -31,12 +32,11 @@ function getCoordinate(city){
         for (i = 0; i < data.length; i++){
             dataReturn.push(data[i]);
             
-            
         }  
-        console.log(dataReturn);
-        return dataReturn;
+        
+        
     });
     
-    return dataReturn[0];
+    return dataReturn;
     
  }
