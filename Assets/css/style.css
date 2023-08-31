@@ -1,0 +1,154 @@
+:root {
+    --border-radius:13px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    
+   display: flex;
+   flex-direction: column;
+}
+
+header {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    margin: 10px;
+    padding:25px;
+    color: white;
+    background-color: rgb(106, 106, 241);
+    border-radius: 25px ;
+}
+
+.city-search-container {
+    margin:10px;
+    width: 400px;
+    height: 700px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items:center;
+    background-color: blueviolet;
+    border-radius: 30px;
+    /* box-shadow: -10px -10px 10px 0px; */
+}
+
+.weather-report {
+    margin: 10px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: grey;
+    width:100%;
+    flex-wrap: wrap;
+}
+
+.weather-report * {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.whole-page {
+    margin-top:5px;
+    display: flex;
+    flex-direction: row;
+}
+
+.current-day {
+    margin: 15px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.current-day h1 {
+    font-size:40px;
+}
+
+.current-day * {
+    margin: 10px;
+}
+
+.current-day p {
+    font-size:25px;
+}
+
+.five-day-forecast {
+    
+}
+
+.five-day-forecast h1 {
+    font-size: 45px;
+}
+
+.five-day-weather-cards {
+    display: flex;
+    flex-direction: row;
+}
+
+/* This is the container for the top portion of the city search */
+#search-for-city {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin:20px;
+    /* background-color: yellow; */
+    
+}
+
+#city-search {
+    
+    height: 45px;
+    width: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 5px;
+    margin: 15px;
+    
+}
+
+#search-header {
+    background-color: blue;
+    padding: 0 85px;
+    padding-top:5px;
+    padding-bottom:10px;
+    border-radius: var(--border-radius);
+}
+
+#search-btn {
+    margin: 0px;
+    padding: 5px 155px;
+    border-radius: var(--border-radius);
+}
+
+#seperator {
+    width: 365px;
+    border-radius: 35%;
+    height: 5px;
+    background-color: grey;
+}
+
+#city-list {
+    padding: 10px 135px;
+    background-color: lightgrey;
+    font-size: 25px;
+    margin-top: 25px;
+    list-style-type: none;
+    border-radius: var(--border-radius);
+}
+
+#weather-seperator {
+    background-color: black;
+    width: 90%;
+    height: 5px;
+    margin:5px;
+    border-radius:40%;
+}
