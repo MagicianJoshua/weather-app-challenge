@@ -29,6 +29,7 @@ function getApi(requestUrl) {
         return response.json()
     })
     .then(function (data){
+        // console.log(data);
         for (i = 0; i < data.length; i++){
             dataReturn.push(data[i]);
             
@@ -36,7 +37,5 @@ function getApi(requestUrl) {
         
         return dataReturn;
     });
-    
-   
     
  }
