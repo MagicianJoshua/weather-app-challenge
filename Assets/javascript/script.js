@@ -1,4 +1,4 @@
-var fiveDayForecast = document.querySelector(".five-day-forecast");
+var fiveDayForecast = document.querySelector(".five-day-weather-cards");
 var cityListContainer = document.querySelector("#city-list");
 var weatherApiKey = "873f105b79ecbeb04cce992c7848ed45";
 var searchbtn = document.querySelector("#search-btn");
@@ -21,6 +21,12 @@ searchValue.addEventListener("keypress", function(event){
 //*This is an event listener that whe pressed will search the value inside the textarea
 searchbtn.addEventListener("click", function(event){
     let searchText = searchValue.value;
+    let cards = document.querySelectorAll(".weather-card-template")
+    if (cards.length > 0){
+        for (i = 0; i < cards.length; i++){
+            cards[i].remove();
+        }
+    }
     getCoordinate(searchText).then(function(data){
         let weather = []
         
@@ -28,13 +34,26 @@ searchbtn.addEventListener("click", function(event){
             weather.push(data[0].list[i])
             
         }
+        console.log("img",data[0].list[0].weather[0].icon )
+        let cityName = data[0].city.name;
+        let date = data[0].list[0].dt_txt;
+        let img = data[0].list[0].weather[0].icon
+        let imgUrl = "https://openweathermap.org/img/wn/"+img+"@2x.png"
+        let temp = weather[0].main.temp;
+        let wind = weather[0].wind.speed;
+        let humidity = weather[0].main.humidity;
+        console.log("Date",data[0].list[0].dt_txt)
         console.log("Data list",data[0].city.name)
         console.log("temp",weather[0].main.temp);
         todaysTemp.textContent = "Temp: "+ weather[0].main.temp+" C";
         todaysWind.textContent = "Wind: "+ weather[0].wind.speed+" Meters/Second";
         todaysHumidty.textContent = "Humidity: " + weather[0].main.humidity+"%";
         cityNameHeader.textContent = data[0].city.name;
+
+        constructWeatherCards(cityName,date,imgUrl,temp,wind,humidity);
     });
+
+    
 
 });
 
@@ -92,6 +111,50 @@ function getApi(requestUrl) {
     
  };
 
- function constructWeatherCards() {
+ function constructWeatherCards(name,date,img,temp,wind,humidity) {
+    
     let card = document.createElement("div");
+    card.setAttribute("class","weather-card-template")
+
+    let cardName = document.createElement("h3");
+    cardName.textContent = name;
+    cardName.setAttribute("id","card-city-name")
+    card.appendChild(cardName);
+
+    let cardDate = document.createElement("h4");
+    cardDate.setAttribute("id","card-date");
+    cardDate.textContent = date;
+    card.appendChild(cardDate);
+
+    let cardImg = document.createElement("img");
+    cardImg.setAttribute("src",img);
+    card.appendChild(cardImg);
+
+    let cardTemp = document.createElement("p");
+    cardTemp.setAttribute("id","card-details");
+    cardTemp.textContent = "Temp: "+temp+" C";
+    card.appendChild(cardTemp);
+
+    let cardWind = document.createElement("p");
+    cardWind.setAttribute("id","card-details");
+    cardWind.textContent = "Wind: "+wind+" Meters/Second";
+    card.appendChild(cardWind);
+
+    let cardHumidity = document.createElement("p");
+    cardHumidity.setAttribute("id","card-details");
+    cardHumidity.textContent = humidity+"%";
+    card.appendChild(cardHumidity);
+
+    fiveDayForecast.appendChild(card);
+
+
  };
+
+//  <div class="weather-card-template">
+//                 <h3 id="card-city-name">Vancouver</h3>
+//                 <h4 id="card-date">Date</h4>
+//                 <img id="weather-icon" src="Assets/Images/cloud.jpg">
+//                 <p id="card-details">Temp:</p>
+//                 <p id="card-details">Wind:</p>
+//                 <p id="card-details">Humidity:</p>
+//             </div>

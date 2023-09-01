@@ -95,7 +95,7 @@ header {
     display: flex;
     justify-content: space-evenly;
     flex-direction: row;
-    background-color: blue;
+    
 }
 
 .weather-card-template{
@@ -106,6 +106,7 @@ header {
     height: 300px;
     width:225px;
     border-radius: 25px;;
+    margin-top:15px;
 }
 
 /* This is the container for the top portion of the city search */
