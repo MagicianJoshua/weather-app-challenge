@@ -5,28 +5,40 @@ var searchbtn = document.querySelector("#search-btn");
 var searchValue = document.querySelector("#city-search");
 var todaysTemp = document.querySelector("#todays-temp");
 var todaysWind = document.querySelector("#todays-wind")
+var todaysHumidty = document.querySelector("#todays-humidity")
+var cityNameHeader = document.querySelector("#city-name-header")
 // attach input from html
 
-//* if the user type in the city
 
+//*This is an event listener so that the textarea doesnt accidently reset the page if the user clicks enter in the text area.
+searchValue.addEventListener("keypress", function(event){
+    let keyname = event.key;
+    if (keyname == "Enter" ){
+        event.preventDefault();
+    };
+})
 
+//*This is an event listener that whe pressed will search the value inside the textarea
 searchbtn.addEventListener("click", function(event){
     let searchText = searchValue.value;
-    getCoordinate("london");
+    getCoordinate(searchText).then(function(data){
+        let weather = []
+        
+        for (let i = 0; i < 6; i++){
+            weather.push(data[0].list[i])
+            
+        }
+        console.log("Data list",data[0].city.name)
+        console.log("temp",weather[0].main.temp);
+        todaysTemp.textContent = "Temp: "+ weather[0].main.temp+" C";
+        todaysWind.textContent = "Wind: "+ weather[0].wind.speed+" Meters/Second";
+        todaysHumidty.textContent = "Humidity: " + weather[0].main.humidity+"%";
+        cityNameHeader.textContent = data[0].city.name;
+    });
+
 });
 
-getCoordinate("jerusalem").then(function(data){
-    let weather = []
-    
-    for (let i = 0; i < 5; i++){
-        weather.push(data[0].list[i])
-        
-    }
-    console.log("Data list",data[0].list[0])
-    console.log("temp",weather[0].main.temp);
-    todaysTemp.textContent = "Temp: "+ weather[0].main.temp+" C";
-    todaysWind.textContent = "Wind: "+ weather[0].wind.speed+" Meters/Second";
-});
+
 
 
 
@@ -78,4 +90,8 @@ function getApi(requestUrl) {
         return dataReturn;
     });
     
- }
+ };
+
+ function constructWeatherCards() {
+    let card = document.createElement("div");
+ };

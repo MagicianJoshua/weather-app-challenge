@@ -63,6 +63,7 @@ header {
     margin: 15px;
     display: flex;
     flex-direction: column;
+    margin-left:50px;
     
 }
 
@@ -80,7 +81,8 @@ header {
 
 .five-day-forecast {
     display: flex;
-    
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
 }
 
@@ -89,8 +91,21 @@ header {
 }
 
 .five-day-weather-cards {
+    width: 100%;
     display: flex;
+    justify-content: space-evenly;
     flex-direction: row;
+    background-color: blue;
+}
+
+.weather-card-template{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    align-items: center;
+    height: 300px;
+    width:225px;
+    border-radius: 25px;;
 }
 
 /* This is the container for the top portion of the city search */
@@ -148,10 +163,27 @@ header {
 
 #weather-seperator {
     display: flex;
-    
     background-color: black;
     width: 100%;
     height: 5px;
-    
+ 
     border-radius:40%;
+}
+
+
+
+
+/* *Down here is where we will style all the card elements */
+#weather-icon{
+   width:75%
+}
+#card-city-name{
+    padding-top: 10px;
+}
+#card-date{
+    padding-bottom:5px;
+}
+
+#card-details{
+    padding-top:15px;
 }
