@@ -42,7 +42,7 @@ header {
     border-radius: 30px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    
     background-color: grey;
     width:100%;
     flex-wrap: wrap;
@@ -61,7 +61,6 @@ header {
 
 .current-day {
     margin: 15px;
-    align-items: center;
     display: flex;
     flex-direction: column;
     
@@ -80,7 +79,9 @@ header {
 }
 
 .five-day-forecast {
+    display: flex;
     
+    justify-content: center;
 }
 
 .five-day-forecast h1 {
@@ -146,9 +147,11 @@ header {
 }
 
 #weather-seperator {
+    display: flex;
+    
     background-color: black;
-    width: 90%;
+    width: 100%;
     height: 5px;
-    margin:5px;
+    
     border-radius:40%;
 }
