@@ -9,7 +9,7 @@
 }
 
 body {
-    
+background-color: black;
    display: flex;
    flex-direction: column;
 }
@@ -19,9 +19,10 @@ header {
     align-content: center;
     justify-content: center;
     margin: 10px;
+    margin-bottom: 0px;
     padding:25px;
-    color: white;
-    background-color: rgb(106, 106, 241);
+    color: black;
+    background-color: lightblue;
     border-radius: 25px ;
 }
 
@@ -32,7 +33,7 @@ header {
     display: inline-flex;
     flex-direction: column;
     align-items:center;
-    background-color: blueviolet;
+    background-color: lightblue;
     border-radius: 30px;
     /* box-shadow: -10px -10px 10px 0px; */
 }
@@ -43,7 +44,7 @@ header {
     display: flex;
     flex-direction: column;
     
-    background-color: grey;
+    background-color: lightblue;
     width:100%;
     flex-wrap: wrap;
 }
@@ -60,10 +61,12 @@ header {
 }
 
 .current-day {
-    margin: 15px;
+    
     display: flex;
     flex-direction: column;
-    margin-left:50px;
+    
+    justify-content: center;
+    align-items: center;
     
 }
 
@@ -72,11 +75,12 @@ header {
 }
 
 .current-day * {
-    margin: 10px;
+    
 }
 
 .current-day p {
     font-size:25px;
+    margin-bottom:15px
 }
 
 .five-day-forecast {
@@ -134,7 +138,6 @@ header {
 }
 
 #search-header {
-    background-color: blue;
     padding: 0 85px;
     padding-top:5px;
     padding-bottom:10px;
@@ -151,17 +154,14 @@ header {
     width: 365px;
     border-radius: 35%;
     height: 5px;
-    background-color: grey;
+    background-color: black;
 }
 
 #city-list {
-    padding: 10px 135px;
-    background-color: lightgrey;
-    font-size: 25px;
-    margin-top: 25px;
-    list-style-type: none;
-    border-radius: var(--border-radius);
+    transform: rotate(180deg);
 }
+
+
 #city-name-header{
     display: flex;
     justify-content: center;
@@ -180,6 +180,32 @@ header {
     margin-left:25px;
 }
 
+#searchHistoryLi{
+    display:flex;
+    justify-content:center;
+    transform: rotate(-180deg);
+    padding: 10px 135px;
+    background-color: lightgrey;
+    font-size: 25px;
+    margin-bottom: 25px;
+    border: solid black;
+    list-style-type: none;
+    border-radius: var(--border-radius);
+    text-align: center;
+    
+   
+}
+#searchHistoryBtn {
+    background-color: lightgray;
+    padding: 0;
+    margin:0;
+    border:none;
+    font-size: 25px;
+}
+
+#searchHistoryBtn:hover {
+    cursor:grab;
+}
 
 
 /* *Down here is where we will style all the card elements */

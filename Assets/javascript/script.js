@@ -7,6 +7,15 @@ var todaysTemp = document.querySelector("#todays-temp");
 var todaysWind = document.querySelector("#todays-wind");
 var todaysHumidty = document.querySelector("#todays-humidity");
 var cityNameHeader = document.querySelector("#city-name-header");
+var cityList = document.querySelector("#city-list");
+
+var searchHistoryArray = [];
+var searchHistoryString = localStorage.getItem("SearchHistory");
+if (searchHistoryString) {
+  searchHistoryArray = searchHistoryString.split(",");
+}
+
+searchHistoryBuilder();
 // attach input from html
 
 //*This is an event listener so that the textarea doesnt accidently reset the page if the user clicks enter in the text area.
@@ -20,6 +29,8 @@ searchValue.addEventListener("keypress", function (event) {
 //*This is an event listener that whe pressed will search the value inside the textarea
 searchbtn.addEventListener("click", function (event) {
   let searchText = searchValue.value;
+
+  //*This just makes sure it doesnt keep adding card after every search and it deletes the previous cards.
   let cards = document.querySelectorAll(".weather-card-template");
   if (cards.length > 0) {
     for (i = 0; i < cards.length; i++) {
@@ -29,7 +40,6 @@ searchbtn.addEventListener("click", function (event) {
 
   //!This is setting todays weather!
   getCoordinate(searchText, true).then(function (data) {
-    
     todaysTemp.textContent = "Temp: " + data[0].main.temp + " C";
     todaysWind.textContent = "Wind: " + data[0].wind.speed + " Meters/Second";
     todaysHumidty.textContent = "Humidity: " + data[0].main.humidity + "%";
@@ -41,39 +51,30 @@ searchbtn.addEventListener("click", function (event) {
     img.setAttribute("src", imgsrc);
     cityNameHeader.textContent = data[0].name;
   });
-  
-    //!This is setting the forecast!
+
+  //!This is setting the forecast!
   getCoordinate(searchText, false).then(function (data) {
-    let weather = [];
-
-    weather.push(data[0].list);
-
-    // console.log("weather",weather[0].dt_txt);
-    // console.log("data",data);
-
-    for (i = 4; i < 40; i += 8) {
-      let cityName = data[0].city.name;
-      let dateTxt = data[0].list[i].dt_txt;
-      let dateArray = dateTxt.split(" ");
+    let cityName = data[0].city.name;
+    for (i = 6; i < 40; i += 8) {
       let img = data[0].list[i].weather[0].icon;
       let imgUrl = "https://openweathermap.org/img/wn/" + img + "@2x.png";
-      let temp = data[0].list[i].main.temp;
+      let temp = data[0].list[i].main.temp_max;
       let wind = data[0].list[i].wind.speed;
       let humidity = data[0].list[i].main.humidity;
-      constructWeatherCards(
-        cityName,
-        dateArray[0],
-        imgUrl,
-        temp,
-        wind,
-        humidity
-      );
+      let dateTxt = data[0].list[i].dt_txt;
+      let dateArray = dateTxt.split(" ");
+      if (cityName === "Downtown Toronto"){
+        cityName = "toronto";
+      }
+      constructWeatherCards(cityName, dateArray, imgUrl, temp, wind, humidity);
     }
+    searchHistoryFN(cityName);
+    searchHistoryBuilder();
   });
 });
 
 function weatherApiToday(lat, lon) {
-  //*this url is for getting the weather
+  //*this url is for getting todays weather
   let url =
     "https://api.openweathermap.org/data/2.5/weather?lat=" +
     lat +
@@ -90,7 +91,7 @@ function weatherApiToday(lat, lon) {
 }
 
 function weatherApiForecast(lat, lon) {
-  //*this url is for getting the weather
+  //*this url is for getting the weather forecast
   let url =
     "https://api.openweathermap.org/data/2.5/forecast?lat=" +
     lat +
@@ -117,7 +118,6 @@ function getCoordinate(city, current) {
     return getApi(url)
       .then(function (fetchData) {
         let x = fetchData[0];
-        console.log("forecast");
         return weatherApiForecast(x[0].lat, x[0].lon);
       })
       .catch(function (error) {
@@ -126,7 +126,6 @@ function getCoordinate(city, current) {
         console.log("name a city");
       });
   } else {
-    console.log("current");
     return getApi(url)
       .then(function (fetchData) {
         let x = fetchData[0];
@@ -185,17 +184,84 @@ function constructWeatherCards(name, date, img, temp, wind, humidity) {
 
   let cardHumidity = document.createElement("p");
   cardHumidity.setAttribute("id", "card-details");
-  cardHumidity.textContent = humidity + "%";
+  cardHumidity.textContent = "Humidity: " + humidity + "%";
   card.appendChild(cardHumidity);
 
   fiveDayForecast.appendChild(card);
 }
 
-//  <div class="weather-card-template">
-//                 <h3 id="card-city-name">Vancouver</h3>
-//                 <h4 id="card-date">Date</h4>
-//                 <img id="weather-icon" src="Assets/Images/cloud.jpg">
-//                 <p id="card-details">Temp:</p>
-//                 <p id="card-details">Wind:</p>
-//                 <p id="card-details">Humidity:</p>
-//             </div>
+function searchHistoryFN(search) {
+  searchHistoryArray.push(search);
+  if (searchHistoryArray.length >= 6) {
+    searchHistoryArray.shift();
+  }
+  localStorage.setItem("SearchHistory", searchHistoryArray);
+}
+
+function searchHistoryBuilder() {
+  var cityListLi = document.querySelectorAll("#searchHistoryLi");
+
+  for (i = 0; i < cityListLi.length; i++) {
+    console.log("removing");
+    cityListLi[i].remove();
+  }
+
+
+console.log(searchHistoryArray);
+for (i = 0; i < searchHistoryArray.length; i++) {
+  let li = document.createElement("li");
+  li.setAttribute("id", "searchHistoryLi");
+
+  let btn = document.createElement("button");
+  btn.textContent = searchHistoryArray[i];
+  btn.setAttribute("id", "searchHistoryBtn");
+
+  btn.addEventListener("click", function (event) {
+    let searchText = this.textContent;
+    let cards = document.querySelectorAll(".weather-card-template");
+  if (cards.length > 0) {
+    for (i = 0; i < cards.length; i++) {
+      cards[i].remove();
+    }}
+    
+    getCoordinate(searchText, true).then(function (data) {
+      todaysTemp.textContent = "Temp: " + data[0].main.temp + " C";
+      todaysWind.textContent = "Wind: " + data[0].wind.speed + " Meters/Second";
+      todaysHumidty.textContent = "Humidity: " + data[0].main.humidity + "%";
+      let img = document.querySelector("#current-day-icon");
+      let imgsrc =
+        "https://openweathermap.org/img/wn/" +
+        data[0].weather[0].icon +
+        "@2x.png";
+      img.setAttribute("src", imgsrc);
+      cityNameHeader.textContent = data[0].name;
+    });
+
+    //!This is setting the forecast!
+    getCoordinate(searchText, false).then(function (data) {
+      let cityName = data[0].city.name;
+      for (i = 6; i < 40; i += 8) {
+        let img = data[0].list[i].weather[0].icon;
+        let imgUrl = "https://openweathermap.org/img/wn/" + img + "@2x.png";
+        let temp = data[0].list[i].main.temp_max;
+        let wind = data[0].list[i].wind.speed;
+        let humidity = data[0].list[i].main.humidity;
+        let dateTxt = data[0].list[i].dt_txt;
+        let dateArray = dateTxt.split(" ");
+        constructWeatherCards(
+          cityName,
+          dateArray,
+          imgUrl,
+          temp,
+          wind,
+          humidity
+        );
+      }
+    });
+  });
+
+  li.appendChild(btn);
+  cityList.appendChild(li);
+}}
+
+
