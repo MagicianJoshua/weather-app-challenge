@@ -1,47 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Assets/css/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="Assets/css/style.css" />
     <title>Weather Report</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <h1>Weather Report</h1>
+      <h1>Weather Report</h1>
     </header>
     <div class="whole-page">
-    <aside class="city-search-container">
+      <aside class="city-search-container">
         <div id="search-for-city">
-            <h1 id="search-header">Search for a city</h1>
-            <form>
-                <input placeholder="Enter City" type="text" id="city-search" name="city-search">
-            </form>
-            <button id="search-btn">Search</button>
+          <h1 id="search-header">Search for a city</h1>
+          <form>
+            <input
+              placeholder="Enter City"
+              type="text"
+              id="city-search"
+              name="city-search"
+            />
+          </form>
+          <button id="search-btn">Search</button>
         </div>
-        <div id="seperator">
-        </div>
+        <div id="seperator"></div>
         <ul id="city-list">
-            <li>
-                Toronto
-            </li>
+          <li>Toronto</li>
         </ul>
-    </aside>
-    
-    <section class="weather-report">
+      </aside>
+
+      <section class="weather-report">
         <section class="current-day">
-            <h1 id="city-name-header">city name</h1>
-            <p>Temp:</p>
-            <p>Wind:</p>
-            <p>Humidity:</p>
+            <div>
+          <h1 id="city-name-header">city name</h1>
+          <img id="current-day-icon" src="">
+        </div>
+          <p id="todays-temp">Temp:</p>
+          <p id="todays-wind">Wind:</p>
+          <p id="todays-humidity">Humidity:</p>
         </section>
         <div id="weather-seperator"></div>
         <section class="five-day-forecast">
-            <h1>5 Day Forecast</h1>
-            <section class="five-day-weather-cards"></section>
+          <h1>5 Day Forecast</h1>
+          <section class="five-day-weather-cards">
+            <!-- <div class="weather-card-template">
+                <h3 id="card-city-name">Vancouver</h3>
+                <h4 id="card-date">Date</h4>
+                <img id="weather-icon" src="Assets/Images/cloud.jpg">
+                <p id="card-details">Temp:</p>
+                <p id="card-details">Wind:</p>
+                <p id="card-details">Humidity:</p>
+            </div> -->
+          </section>
         </section>
-    </section>
-</div>
-<script src="Assets/javascript/script.js"></script>
-</body>
+      </section>
+    </div>
+    <script src="Assets/javascript/script.js"></script>
+  </body>
 </html>
